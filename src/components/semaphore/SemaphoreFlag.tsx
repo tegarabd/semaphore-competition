@@ -1,27 +1,7 @@
 import { Component } from "solid-js";
-
-const SEMAPHORE_SIZE = {
-  xs: {
-    stick: "w-0.5 h-[2.5rem]",
-    redFlag: "border-t-[1.5rem] border-r-[1.5rem]",
-    yellowFlag: "border-b-[1.5rem] border-l-[1.5rem]",
-  },
-  sm: {
-    stick: "w-1 h-[5rem]",
-    redFlag: "border-t-[3rem] border-r-[3rem]",
-    yellowFlag: "border-b-[3rem] border-l-[3rem]",
-  },
-  md: {
-    stick: "w-2 h-[10rem]",
-    redFlag: "border-t-[6rem] border-r-[6rem]",
-    yellowFlag: "border-b-[6rem] border-l-[6rem]",
-  },
-  lg: {
-    stick: "w-3 h-[15rem]",
-    redFlag: "border-t-[9rem] border-r-[9rem]",
-    yellowFlag: "border-b-[9rem] border-l-[9rem]",
-  },
-};
+import { Box } from "@suid/material";
+import { brown, red, yellow } from "@suid/material/colors";
+import { SEMAPHORE_SIZE } from "../../lib/semaphore";
 
 const SemaphoreFlag: Component<{ size: "sm" | "md" | "lg" | "xs" }> = (
   props
@@ -31,17 +11,48 @@ const SemaphoreFlag: Component<{ size: "sm" | "md" | "lg" | "xs" }> = (
   const yellowFlag = () => SEMAPHORE_SIZE[props.size].yellowFlag;
 
   return (
-    <div class="flex">
-      <div class={`${stick()} bg-amber-900`}></div>
-      <div class="relative">
-        <div
-          class={`absolute w-0 h-0 border-solid ${redFlag()} border-b-0 border-l-0 border-t-red-600 border-r-transparent border-b-transparent border-l-transparent`}
-        ></div>
-        <div
+    <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{
+          backgroundColor: brown[700],
+          borderRadius: "100vw",
+          ...stick(),
+        }}
+      ></Box>
+      <Box sx={{ position: "relative", transform: "translateY(2.5%)" }}>
+        <Box
+          sx={{
+            position: "absolute",
+            width: 0,
+            height: 0,
+            borderStyle: "solid",
+            borderBottomWidth: 0,
+            borderLeftWidth: 0,
+            borderTopColor: red[700],
+            borderRightColor: "transparent",
+            borderBottomColor: "transparent",
+            borderLeftColor: "transparent",
+            ...redFlag(),
+          }}
+        ></Box>
+        <Box
+          sx={{
+            position: "absolute",
+            width: 0,
+            height: 0,
+            borderStyle: "solid",
+            borderRightWidth: 0,
+            borderTopWidth: 0,
+            borderTopColor: "transparent",
+            borderRightColor: "transparent",
+            borderBottomColor: yellow[600],
+            borderLeftColor: "transparent",
+            ...yellowFlag(),
+          }}
           class={`absolute w-0 h-0 border-solid border-t-0 border-r-0 ${yellowFlag()} border-t-transparent border-r-transparent border-b-yellow-300 border-l-transparent`}
-        ></div>
-      </div>
-    </div>
+        ></Box>
+      </Box>
+    </Box>
   );
 };
 

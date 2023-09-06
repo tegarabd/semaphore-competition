@@ -1,7 +1,6 @@
 import { Outlet, Route, Routes, useNavigate } from "@solidjs/router";
 import type { Component } from "solid-js";
 import { Toaster } from "solid-toast";
-import NavBar from "./components/NavBar";
 import { useUser } from "./context/UserContext";
 import Competition from "./pages/Competition";
 import Home from "./pages/Home";
@@ -9,6 +8,7 @@ import Learn from "./pages/Learn";
 import Login from "./pages/Login";
 import Practice from "./pages/Practice";
 import Register from "./pages/Register";
+import AppWrapper from "./components/AppWrapper";
 
 const App: Component = () => {
   return (
@@ -33,9 +33,9 @@ const App: Component = () => {
 const NavigationWrapper: Component = () => {
   return (
     <>
-      <NavBar>
+      <AppWrapper>
         <Outlet />
-      </NavBar>
+      </AppWrapper>
     </>
   );
 };

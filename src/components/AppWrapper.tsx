@@ -20,8 +20,6 @@ import {
   Divider,
 } from "@suid/material";
 import MenuIcon from "@suid/icons-material/Menu";
-import MailIcon from "@suid/icons-material/Mail";
-import InboxIcon from "@suid/icons-material/Inbox";
 import HomeIcon from "@suid/icons-material/Home";
 import EmojiEventsIcon from "@suid/icons-material/EmojiEvents";
 import FlagIcon from "@suid/icons-material/Flag";
@@ -29,14 +27,14 @@ import ImportContactsIcon from "@suid/icons-material/ImportContacts";
 
 const drawerWidth = 240;
 
-const menus = [
+const menus = () => [
   { text: "Home", link: "/", icon: <HomeIcon /> },
   { text: "Competition", link: "/competition", icon: <EmojiEventsIcon /> },
   { text: "Practice", link: "/practice", icon: <FlagIcon /> },
   { text: "Learn", link: "/learn", icon: <ImportContactsIcon /> },
 ];
 
-const NavBar: Component<{ children: JSX.Element }> = (props) => {
+const AppWrapper: Component<{ children: JSX.Element }> = (props) => {
   const [anchorElUser, setAnchorElUser] = createSignal();
   const [mobileOpen, setMobileOpen] = createSignal(false);
   const { getCurrentUser, getUserAvatarUrl, logout } = useUser();
@@ -64,8 +62,8 @@ const NavBar: Component<{ children: JSX.Element }> = (props) => {
       <Toolbar />
       <Divider />
       <List>
-        <For each={menus}>
-          {(menu, index) => (
+        <For each={menus()}>
+          {(menu) => (
             <>
               <ListItem sx={{ py: 0 }}>
                 <ListItemButton
@@ -90,27 +88,43 @@ const NavBar: Component<{ children: JSX.Element }> = (props) => {
         position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Toolbar>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
-          <img
-            src="/src/assets/semaphore.png"
-            style={{
-              width: "2.5rem",
-              height: "2.5rem",
-              "margin-right": "1rem",
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              textDecoration: "inherit",
+              color: "inherit",
             }}
-          />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Semaphore
-          </Typography>
+            component={A}
+            href="/"
+          >
+            <img
+              src="/src/assets/semaphore.png"
+              style={{
+                width: "2.5rem",
+                height: "2.5rem",
+              }}
+            />
+            <Typography variant="h6" component="div">
+              Semaphore
+            </Typography>
+          </Box>
           <Show when={!Boolean(getCurrentUser())}>
             <Button component={A} href="/auth/login" color="inherit">
               Login
@@ -198,4 +212,4 @@ const NavBar: Component<{ children: JSX.Element }> = (props) => {
   );
 };
 
-export default NavBar;
+export default AppWrapper;

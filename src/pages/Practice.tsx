@@ -1,12 +1,13 @@
+import { Typography } from "@suid/material";
 import { Component } from "solid-js";
 import GuessPerWord from "../components/semaphore/GuessPerWord";
 
 const Practice: Component = () => {
   return (
     <>
-      <h1 class="mb-2 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
+      <Typography variant="h3" component="h1" fontWeight="bold">
         Practice
-      </h1>
+      </Typography>
       <GuessPerWord />
     </>
   );
