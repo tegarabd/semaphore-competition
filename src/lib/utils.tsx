@@ -1,3 +1,5 @@
+import CloseIcon from "@suid/icons-material/Close";
+import { Alert, Box, Grow, IconButton } from "@suid/material";
 import { ClientResponseError } from "pocketbase";
 import { FormErrorsException } from "solid-form-handler";
 import toast from "solid-toast";
@@ -27,10 +29,37 @@ export async function sendRequest(action: () => Promise<void>) {
 }
 
 export function toastError(text: string) {
-  toast.error(text, {
-    position: "top-right",
-    duration: 3000,
-  });
+  toast.custom(
+    (t) => {
+      return (
+        <Box sx={{ width: "24rem" }}>
+          <Grow in={t.visible}>
+            <Alert
+              severity="error"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    toast.dismiss(t.id);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              {text}
+            </Alert>
+          </Grow>
+        </Box>
+      );
+    },
+    {
+      duration: 3000,
+    }
+  );
 }
 
 export function getRandomAlphabet() {

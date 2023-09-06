@@ -1,22 +1,23 @@
 import { A, useNavigate } from "@solidjs/router";
+import { Button, Stack, Typography } from "@suid/material";
+import { FormHandler, useFormHandler } from "solid-form-handler";
+import { yupSchema } from "solid-form-handler/yup";
 import {
-  createSignal,
-  type Component,
-  createContext,
-  useContext,
-  Switch,
   Match,
   Show,
+  Switch,
+  createContext,
+  createSignal,
+  useContext,
+  type Component,
 } from "solid-js";
 import AuthWrapper from "../components/AuthWrapper";
 import Step1 from "../components/register-form/Step1";
-import { FormHandler, useFormHandler } from "solid-form-handler";
-import { RegisterData, registerSchema } from "../schema/user";
 import Step2 from "../components/register-form/Step2";
 import Step3 from "../components/register-form/Step3";
-import { yupSchema } from "solid-form-handler/yup";
 import { useUser } from "../context/UserContext";
 import { sendRequest } from "../lib/utils";
+import { RegisterData, registerSchema } from "../schema/user";
 
 const RegisterFormContext = createContext(
   {} as {
@@ -65,7 +66,7 @@ const Register: Component = () => {
     <>
       <RegisterFormContext.Provider value={{ formHandler }}>
         <AuthWrapper title="Create an account">
-          <form onSubmit={submit}>
+          <Stack component="form" spacing={2} onSubmit={submit}>
             <Switch>
               <Match when={step() === 1}>
                 <Step1 />
@@ -77,45 +78,52 @@ const Register: Component = () => {
                 <Step3 />
               </Match>
             </Switch>
-            <div class="flex gap-4">
+            <Stack
+              direction="row"
+              spacing={2}
+              alignItems="stretch"
+              justifyContent="stretch"
+            >
               <Show when={step() > 1}>
-                <button
-                  type="button"
-                  class="my-4 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:bg-blue-400 disabled:dark:bg-blue-500 disabled:cursor-not-allowed"
+                <Button
+                  variant="contained"
                   onClick={back}
+                  sx={{
+                    flexGrow: 1,
+                  }}
                 >
                   Back
-                </button>
+                </Button>
               </Show>
               <Show when={step() < 3}>
-                <button
-                  type="button"
-                  class="my-4 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:bg-blue-400 disabled:dark:bg-blue-500 disabled:cursor-not-allowed"
+                <Button
+                  variant="contained"
                   disabled={formHandler.isFieldInvalid(`step${step()}`)}
                   onClick={next}
+                  sx={{
+                    flexGrow: 1,
+                  }}
                 >
                   Next
-                </button>
+                </Button>
               </Show>
               <Show when={step() === 3}>
-                <button
-                  class="my-4 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:bg-blue-400 disabled:dark:bg-blue-500 disabled:cursor-not-allowed"
+                <Button
+                  variant="contained"
+                  type="submit"
                   disabled={formHandler.isFormInvalid()}
+                  sx={{
+                    flexGrow: 1,
+                  }}
                 >
                   Submit
-                </button>
+                </Button>
               </Show>
-            </div>
-            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-              Already have an account?{" "}
-              <A
-                href="/auth/login"
-                class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-              >
-                Sign in
-              </A>
-            </p>
-          </form>
+            </Stack>
+            <Typography variant="body2">
+              Already have an account? <A href="/auth/login">Sign in</A>
+            </Typography>
+          </Stack>
         </AuthWrapper>
       </RegisterFormContext.Provider>
     </>

@@ -36,10 +36,16 @@ const GuessPerWord: Component = () => {
                 setGuess(event.currentTarget.value.toUpperCase())
               }
               placeholder="WORD"
-              class="placeholder-gray-200 block w-10/12 text-center py-2.5 px-0 text-5xl md:text-6xl lg:text-8xl font-medium text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              class="placeholder-gray-200 block w-10/12 text-center py-2.5 px-0 text-5xl md:text-6xl lg:text-8xl font-medium text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer"
             />
           </form>
         </div>
+        <button
+          type="button"
+          class="px-6 py-3.5 text-lg font-medium text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        >
+          Start
+        </button>
       </div>
     </GuessWrapper>
   );

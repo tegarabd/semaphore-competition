@@ -1,129 +1,199 @@
 import { A, useNavigate } from "@solidjs/router";
-import { onMount, type Component, Show } from "solid-js";
+import { type Component, JSX, Show, createSignal, For } from "solid-js";
 import { useUser } from "../context/UserContext";
-import { initFlowbite } from "flowbite";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Button,
+  Typography,
+  Avatar,
+  Menu,
+  MenuItem,
+  Drawer,
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+} from "@suid/material";
+import MenuIcon from "@suid/icons-material/Menu";
+import MailIcon from "@suid/icons-material/Mail";
+import InboxIcon from "@suid/icons-material/Inbox";
+import HomeIcon from "@suid/icons-material/Home";
+import EmojiEventsIcon from "@suid/icons-material/EmojiEvents";
+import FlagIcon from "@suid/icons-material/Flag";
+import ImportContactsIcon from "@suid/icons-material/ImportContacts";
 
-const NavBar: Component = () => {
+const drawerWidth = 240;
+
+const menus = [
+  { text: "Home", link: "/", icon: <HomeIcon /> },
+  { text: "Competition", link: "/competition", icon: <EmojiEventsIcon /> },
+  { text: "Practice", link: "/practice", icon: <FlagIcon /> },
+  { text: "Learn", link: "/learn", icon: <ImportContactsIcon /> },
+];
+
+const NavBar: Component<{ children: JSX.Element }> = (props) => {
+  const [anchorElUser, setAnchorElUser] = createSignal();
+  const [mobileOpen, setMobileOpen] = createSignal(false);
   const { getCurrentUser, getUserAvatarUrl, logout } = useUser();
   const navigate = useNavigate();
+
   const signout = () => {
     logout();
     navigate("/auth/login");
   };
 
-  onMount(() => {
-    initFlowbite();
-  });
+  const handleDrawerToggle = () => {
+    setMobileOpen((prev) => !prev);
+  };
+
+  const handleOpenUserMenu = (event: Event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const drawer = () => (
+    <div>
+      <Toolbar />
+      <Divider />
+      <List>
+        <For each={menus}>
+          {(menu, index) => (
+            <>
+              <ListItem sx={{ py: 0 }}>
+                <ListItemButton
+                  component={A}
+                  href={menu.link}
+                  sx={{ cursor: "pointer" }}
+                >
+                  <ListItemIcon>{menu.icon}</ListItemIcon>
+                  <ListItemText primary={menu.text} />
+                </ListItemButton>
+              </ListItem>
+            </>
+          )}
+        </For>
+      </List>
+    </div>
+  );
 
   return (
     <>
-      <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <div class="px-3 py-3 lg:px-5 lg:pl-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center justify-start">
-              <button
-                data-drawer-target="logo-sidebar"
-                data-drawer-toggle="logo-sidebar"
-                aria-controls="logo-sidebar"
-                type="button"
-                class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              >
-                <span class="sr-only">Open sidebar</span>
-                <svg
-                  class="w-6 h-6"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    fill-rule="evenodd"
-                    d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-                  ></path>
-                </svg>
-              </button>
-              <A href="/" class="flex ml-2 md:mr-24">
-                <img
-                  class="w-8 h-8 mr-2"
-                  src="/src/assets/semaphore.png"
-                  alt="logo"
-                />
-                <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                  Semaphore
-                </span>
-              </A>
-            </div>
-            <div class="flex items-center">
-              <Show when={getCurrentUser()}>
-                <div class="flex items-center ml-3">
-                  <div>
-                    <button
-                      type="button"
-                      class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                      aria-expanded="false"
-                      data-dropdown-toggle="dropdown-user"
-                    >
-                      <span class="sr-only">Open user menu</span>
-                      <img
-                        class="w-8 h-8 rounded-full object-cover"
-                        src={getUserAvatarUrl()}
-                        alt="user photo"
-                      />
-                    </button>
-                  </div>
-                  <div
-                    class="min-w-[16rem] z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                    id="dropdown-user"
-                  >
-                    <div class="px-4 py-3" role="none">
-                      <p
-                        class="text-sm text-gray-900 dark:text-white"
-                        role="none"
-                      >
-                        {getCurrentUser()?.username}
-                      </p>
-                      <p
-                        class="text-sm text-gray-900 dark:text-white"
-                        role="none"
-                      >
-                        {getCurrentUser()?.name}
-                      </p>
-                      <p
-                        class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
-                        role="none"
-                      >
-                        {getCurrentUser()?.email}
-                      </p>
-                    </div>
-                    <ul class="py-1" role="none">
-                      <li>
-                        <button
-                          onClick={signout}
-                          class="block w-full px-4 py-2 text-sm text-start text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                          role="menuitem"
-                        >
-                          Sign out
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </Show>
-
-              <Show when={!getCurrentUser()}>
-                <A
-                  href="/auth/login"
-                  type="button"
-                  class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                >
-                  Sign In
-                </A>
-              </Show>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <AppBar
+        position="fixed"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <img
+            src="/src/assets/semaphore.png"
+            style={{
+              width: "2.5rem",
+              height: "2.5rem",
+              "margin-right": "1rem",
+            }}
+          />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Semaphore
+          </Typography>
+          <Show when={!Boolean(getCurrentUser())}>
+            <Button component={A} href="/auth/login" color="inherit">
+              Login
+            </Button>
+          </Show>
+          <Show when={Boolean(getCurrentUser())}>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt={getCurrentUser()?.name} src={getUserAvatarUrl()} />
+            </IconButton>
+          </Show>
+          <Menu
+            sx={{
+              mt: "3rem",
+            }}
+            anchorEl={anchorElUser() as Element}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElUser())}
+            onClose={handleCloseUserMenu}
+          >
+            <MenuItem onClick={signout}>
+              <Typography textAlign="center">Sign out</Typography>
+            </MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
+      <Box sx={{ display: "flex" }}>
+        <Box
+          component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          aria-label="mailbox folders"
+        >
+          <Drawer
+            container={document.getElementById("root") as Element}
+            variant="temporary"
+            open={mobileOpen()}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {drawer()}
+          </Drawer>
+          <Drawer
+            container={document.getElementById("root") as Element}
+            variant="permanent"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            {drawer()}
+          </Drawer>
+        </Box>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            mt: 8,
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+          }}
+        >
+          {props.children}
+        </Box>
+      </Box>
     </>
   );
 };

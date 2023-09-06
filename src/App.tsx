@@ -1,14 +1,14 @@
-import type { Component } from "solid-js";
 import { Outlet, Route, Routes, useNavigate } from "@solidjs/router";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Competition from "./pages/Competition";
-import Register from "./pages/Register";
-import Wrapper from "./components/Wrapper";
+import type { Component } from "solid-js";
 import { Toaster } from "solid-toast";
-import Learn from "./pages/Learn";
+import NavBar from "./components/NavBar";
 import { useUser } from "./context/UserContext";
+import Competition from "./pages/Competition";
+import Home from "./pages/Home";
+import Learn from "./pages/Learn";
+import Login from "./pages/Login";
 import Practice from "./pages/Practice";
+import Register from "./pages/Register";
 
 const App: Component = () => {
   return (
@@ -33,12 +33,9 @@ const App: Component = () => {
 const NavigationWrapper: Component = () => {
   return (
     <>
-      <Wrapper />
-      <div class="p-4 sm:ml-64">
-        <div class="p-4 mt-14">
-          <Outlet />
-        </div>
-      </div>
+      <NavBar>
+        <Outlet />
+      </NavBar>
     </>
   );
 };

@@ -1,10 +1,13 @@
+import { Typography } from "@suid/material";
 import type { Component } from "solid-js";
 
 const Home: Component = () => {
   return (
-    <h1 class="mb-2 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
-      Home
-    </h1>
+    <>
+      <Typography variant="h3" component="h1" fontWeight="bold">
+        Home
+      </Typography>
+    </>
   );
 };
 
