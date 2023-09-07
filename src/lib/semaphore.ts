@@ -60,8 +60,8 @@ export const SEMAPHORE_SIZE = {
 export const STICKMAN_SIZE = {
   xs: {
     outerSpace: {
-      height: "7rem",
-      width: "8rem",
+      height: "8rem",
+      width: "8.3rem",
     },
     headSize: {
       width: "1rem",
@@ -81,12 +81,12 @@ export const STICKMAN_SIZE = {
       height: "2rem",
     },
     flagOffset: "translateY(-0.5rem)",
-    bodyOffset: { transform: "translateY(2rem)" },
+    bodyOffset: { transform: "translateY(2.5rem)" },
   },
   sm: {
     outerSpace: {
-      height: "14rem",
-      width: "16rem",
+      height: "16rem",
+      width: "16.6rem",
     },
     headSize: {
       width: "2rem",
@@ -106,12 +106,12 @@ export const STICKMAN_SIZE = {
       height: "4rem",
     },
     flagOffset: "translateY(-1rem)",
-    bodyOffset: { transform: "translateY(4rem)" },
+    bodyOffset: { transform: "translateY(5rem)" },
   },
   md: {
     outerSpace: {
-      height: "28rem",
-      width: "32rem",
+      height: "32rem",
+      width: "33.3rem",
     },
     headSize: {
       width: "4rem",
@@ -131,12 +131,12 @@ export const STICKMAN_SIZE = {
       height: "8rem",
     },
     flagOffset: "translateY(-2rem)",
-    bodyOffset: { transform: "translateY(8rem)" },
+    bodyOffset: { transform: "translateY(10rem)" },
   },
   lg: {
     outerSpace: {
-      height: "42rem",
-      width: "48rem",
+      height: "48rem",
+      width: "50rem",
     },
     headSize: {
       width: "6rem",
@@ -156,7 +156,7 @@ export const STICKMAN_SIZE = {
       height: "12rem",
     },
     flagOffset: "translateY(-3rem)",
-    bodyOffset: { transform: "translateY(12rem)" },
+    bodyOffset: { transform: "translateY(15rem)" },
   },
 };
 
@@ -174,13 +174,23 @@ interface SemaphoreSignal {
 }
 
 export const SEMAPHORE_SIGNAL: SemaphoreSignal = {
+  "!": {
+    left: {
+      rotation: "rotate(-15deg)",
+      flip: "scale(-1, 1)",
+    },
+    right: {
+      rotation: "rotate(15deg)",
+      flip: "scale(1, 1)",
+    },
+  },
   a: {
     left: {
       rotation: "rotate(45deg)",
       flip: "scale(1, 1)",
     },
     right: {
-      rotation: "rotate(10deg)",
+      rotation: "rotate(15deg)",
       flip: "scale(1, 1)",
     },
   },
@@ -190,7 +200,7 @@ export const SEMAPHORE_SIGNAL: SemaphoreSignal = {
       flip: "scale(1, 1)",
     },
     right: {
-      rotation: "rotate(10deg)",
+      rotation: "rotate(15deg)",
       flip: "scale(1, 1)",
     },
   },
@@ -200,7 +210,7 @@ export const SEMAPHORE_SIGNAL: SemaphoreSignal = {
       flip: "scale(1, 1)",
     },
     right: {
-      rotation: "rotate(10deg)",
+      rotation: "rotate(15deg)",
       flip: "scale(1, 1)",
     },
   },
@@ -210,13 +220,13 @@ export const SEMAPHORE_SIGNAL: SemaphoreSignal = {
       flip: "scale(1, 1)",
     },
     right: {
-      rotation: "rotate(10deg)",
+      rotation: "rotate(15deg)",
       flip: "scale(1, 1)",
     },
   },
   e: {
     left: {
-      rotation: "rotate(-10deg)",
+      rotation: "rotate(-15deg)",
       flip: "scale(-1, 1)",
     },
     right: {
@@ -226,7 +236,7 @@ export const SEMAPHORE_SIGNAL: SemaphoreSignal = {
   },
   f: {
     left: {
-      rotation: "rotate(-10deg)",
+      rotation: "rotate(-15deg)",
       flip: "scale(-1, 1)",
     },
     right: {
@@ -236,7 +246,7 @@ export const SEMAPHORE_SIGNAL: SemaphoreSignal = {
   },
   g: {
     left: {
-      rotation: "rotate(-10deg)",
+      rotation: "rotate(-15deg)",
       flip: "scale(-1, 1)",
     },
     right: {

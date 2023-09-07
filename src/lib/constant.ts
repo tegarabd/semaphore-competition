@@ -1,8 +1,9 @@
 export const WINDOW_SIZE = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
+  xs: 0,
+  sm: 600,
+  md: 900,
+  lg: 1200,
+  xl: 1536,
   "2xl": 1536,
 };
 

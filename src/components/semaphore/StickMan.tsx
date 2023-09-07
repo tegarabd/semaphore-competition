@@ -17,13 +17,17 @@ const StickMan: Component<{
   const flagOffset = () => STICKMAN_SIZE[props.size].flagOffset;
   const bodyOffset = () => STICKMAN_SIZE[props.size].bodyOffset;
 
-  const handRotationLeft = () => SEMAPHORE_SIGNAL[props.symbol].left.rotation;
-  const flagFlipLeft = () => SEMAPHORE_SIGNAL[props.symbol].left.flip;
-  const handRotationRight = () => SEMAPHORE_SIGNAL[props.symbol].right.rotation;
-  const flagFlipRight = () => SEMAPHORE_SIGNAL[props.symbol].right.flip;
+  const leftHandRotation = () => SEMAPHORE_SIGNAL[props.symbol].left.rotation;
+  const leftFlagFlip = () => SEMAPHORE_SIGNAL[props.symbol].left.flip;
+  const rightHandRotation = () => SEMAPHORE_SIGNAL[props.symbol].right.rotation;
+  const rightFlagFlip = () => SEMAPHORE_SIGNAL[props.symbol].right.flip;
 
   return (
-    <Box sx={outerSpace()}>
+    <Box
+      sx={{
+        ...outerSpace(),
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -60,14 +64,14 @@ const StickMan: Component<{
               transformOrigin: "50% 10%",
               display: "flex",
               justifyContent: "center",
-              transform: handRotationLeft(),
+              transform: leftHandRotation(),
               ...handAndLegSize(),
             }}
           >
             <Box
               sx={{
                 position: "absolute",
-                transform: `scaleY(-100%) ${flagOffset()} ${flagFlipLeft()}`,
+                transform: `scaleY(-100%) ${flagOffset()} ${leftFlagFlip()}`,
                 transition: "all 500ms",
               }}
             >
@@ -84,14 +88,14 @@ const StickMan: Component<{
               transformOrigin: "50% 10%",
               display: "flex",
               justifyContent: "center",
-              transform: handRotationRight(),
+              transform: rightHandRotation(),
               ...handAndLegSize(),
             }}
           >
             <Box
               sx={{
                 position: "absolute",
-                transform: `scaleY(-100%) ${flagOffset()} ${flagFlipRight()}`,
+                transform: `scaleY(-100%) ${flagOffset()} ${rightFlagFlip()}`,
                 transition: "all 500ms",
               }}
             >

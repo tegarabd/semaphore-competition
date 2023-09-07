@@ -25,13 +25,21 @@ import EmojiEventsIcon from "@suid/icons-material/EmojiEvents";
 import FlagIcon from "@suid/icons-material/Flag";
 import ImportContactsIcon from "@suid/icons-material/ImportContacts";
 
-const drawerWidth = 240;
+const drawerWidth = 210;
 
 const menus = () => [
-  { text: "Home", link: "/", icon: <HomeIcon /> },
-  { text: "Competition", link: "/competition", icon: <EmojiEventsIcon /> },
-  { text: "Practice", link: "/practice", icon: <FlagIcon /> },
-  { text: "Learn", link: "/learn", icon: <ImportContactsIcon /> },
+  { text: "Home", link: "/", icon: <HomeIcon color="primary" /> },
+  {
+    text: "Competition",
+    link: "/competition",
+    icon: <EmojiEventsIcon color="primary" />,
+  },
+  { text: "Practice", link: "/practice", icon: <FlagIcon color="primary" /> },
+  {
+    text: "Learn",
+    link: "/learn",
+    icon: <ImportContactsIcon color="primary" />,
+  },
 ];
 
 const AppWrapper: Component<{ children: JSX.Element }> = (props) => {
@@ -168,9 +176,6 @@ const AppWrapper: Component<{ children: JSX.Element }> = (props) => {
             variant="temporary"
             open={mobileOpen()}
             onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true,
-            }}
             sx={{
               display: { xs: "block", sm: "none" },
               "& .MuiDrawer-paper": {
