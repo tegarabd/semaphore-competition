@@ -1,22 +1,14 @@
 import { Component, createSignal } from "solid-js";
 import { Modal, Stack, Typography } from "@suid/material";
 
-const GuessWordForm: Component = () => {
-  const [open, setOpen] = createSignal(true);
-
-  const handleOnClose = () => {
-    setOpen(false);
-  };
-
-  const handleOnOpen = () => {
-    setOpen(true);
-  };
-
+const GuessWordForm: Component<{ open: boolean; onClose: VoidFunction }> = (
+  props
+) => {
   return (
     <>
       <Modal
-        open={open()}
-        onClose={handleOnClose}
+        open={props.open}
+        onClose={props.onClose}
         sx={{
           display: "grid",
           placeItems: "center",
