@@ -2,11 +2,15 @@ Requirements:
 
 - login as user and admin [V]
 - user:
+  - learn semaphore
+    - learn A-Z symbol [V]
+    - guess letter [V]
+    - view correct streak
   - practice semaphore:
-    - learn A-Z symbol
     - practice words
     - set speed
     - set words count
+    - set language
   - join competition:
     - view participants
     - view competition guide:

@@ -1,28 +1,21 @@
-import { Component, createSignal } from "solid-js";
-import { Modal, Stack, Typography } from "@suid/material";
+import { Component } from "solid-js";
+import { Paper, Stack, Typography } from "@suid/material";
+import { TextInput } from "../input/TextInput";
 
-const GuessWordForm: Component<{ open: boolean; onClose: VoidFunction }> = (
-  props
-) => {
+const GuessWordForm: Component = () => {
   return (
     <>
-      <Modal
-        open={props.open}
-        onClose={props.onClose}
+      <Stack
+        component={Paper}
+        variant="outlined"
         sx={{
-          display: "grid",
-          placeItems: "center",
+          p: 4,
         }}
+        spacing={2}
       >
-        <Stack
-          sx={{
-            backgroundColor: "background.default",
-            p: 2,
-          }}
-        >
-          <Typography variant="h2">Start Practice</Typography>
-        </Stack>
-      </Modal>
+        <Typography variant="h3">Start Practice</Typography>
+        <TextInput label="Speed" type="numeric" pattern="[0-9]*" />
+      </Stack>
     </>
   );
 };

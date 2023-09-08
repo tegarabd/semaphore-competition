@@ -1,20 +1,8 @@
-import { Typography, Fab, Box } from "@suid/material";
-import { Component, createSignal } from "solid-js";
+import { Typography, Box } from "@suid/material";
+import { Component } from "solid-js";
 import GuessWord from "../components/semaphore/GuessWord";
-import StartIcon from "@suid/icons-material/Start";
-import GuessWordForm from "../components/semaphore/GuessWordForm";
 
 const Practice: Component = () => {
-  const [open, setOpen] = createSignal(false);
-
-  const handleOnClose = () => {
-    setOpen(false);
-  };
-
-  const handleOnOpen = () => {
-    setOpen(true);
-  };
-
   return (
     <>
       <Box position="relative" height="max(calc(100dvh - 7rem), 100%)">
@@ -22,21 +10,6 @@ const Practice: Component = () => {
           Practice
         </Typography>
         <GuessWord />
-        <GuessWordForm open={open()} onClose={handleOnClose} />
-        <Fab
-          onClick={handleOnOpen}
-          variant="extended"
-          color="secondary"
-          sx={{
-            fontWeight: "bold",
-            position: "absolute",
-            right: "1rem",
-            bottom: "1rem",
-          }}
-        >
-          <StartIcon sx={{ mr: 1 }} />
-          Start Practice
-        </Fab>
       </Box>
     </>
   );

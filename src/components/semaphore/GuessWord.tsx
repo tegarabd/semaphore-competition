@@ -1,8 +1,8 @@
 import { Paper, Stack } from "@suid/material";
 import { Component, createSignal } from "solid-js";
-import { getRandomAlphabet } from "../../lib/utils";
 import GuessInput from "./GuessInput";
 import ResponsiveStickMan from "./ResponsiveStickMan";
+import GuessWordForm from "./GuessWordForm";
 
 const GuessWord: Component = () => {
   const [guess, setGuess] = createSignal("");
@@ -49,13 +49,16 @@ const GuessWord: Component = () => {
         <Stack component={Paper} variant="outlined" alignItems="center">
           <ResponsiveStickMan symbol={symbol()} />
         </Stack>
-        <GuessInput
-          title="Guess the word"
-          type="word"
-          onSubmit={handleOnSubmit}
-          onChange={handleOnChange}
-          value={guess()}
-        />
+        <Stack spacing={3}>
+          <GuessWordForm />
+          <GuessInput
+            title="Guess the word"
+            type="word"
+            onSubmit={handleOnSubmit}
+            onChange={handleOnChange}
+            value={guess()}
+          />
+        </Stack>
       </Stack>
     </>
   );
