@@ -1,14 +1,13 @@
-import { Typography, Box } from "@suid/material";
+import { Box } from "@suid/material";
 import { Component } from "solid-js";
 import GuessWord from "../components/semaphore/GuessWord";
+import H1 from "../components/typography/H1";
 
 const Practice: Component = () => {
   return (
     <>
       <Box position="relative" height="max(calc(100dvh - 7rem), 100%)">
-        <Typography variant="h3" component="h1" fontWeight="bold" mb={2}>
-          Practice
-        </Typography>
+        <H1>Practice</H1>
         <GuessWord />
       </Box>
     </>

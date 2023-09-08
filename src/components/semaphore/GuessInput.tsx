@@ -75,10 +75,9 @@ const GuessInput: Component<GuessInputType> = (props) => {
         }}
       >
         <Typography
-          variant="h2"
-          sx={{
-            fontSize: fontSize(),
-          }}
+          variant="h3"
+          fontWeight="lighter"
+          letterSpacing={-1}
           align="center"
         >
           {props.title}

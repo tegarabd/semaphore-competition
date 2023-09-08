@@ -27,7 +27,8 @@ const CheatSheet: Component<{ open: boolean; onClose: VoidFunction }> = (
             overflow: "auto",
             backgroundColor: "background.default",
             borderRadius: "1rem",
-            p: 2,
+            pr: 2,
+            pb: 2,
           }}
         >
           <For each={ALPHABET.split("")}>

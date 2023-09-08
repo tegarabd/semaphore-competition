@@ -1,12 +1,8 @@
-import { Typography } from "@suid/material";
 import type { Component } from "solid-js";
+import H1 from "../components/typography/H1";
 
 const Competition: Component = () => {
-  return (
-    <Typography variant="h3" component="h1" fontWeight="bold">
-      Competition
-    </Typography>
-  );
+  return <H1>Competition</H1>;
 };
 
 export default Competition;

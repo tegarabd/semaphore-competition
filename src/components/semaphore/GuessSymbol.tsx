@@ -4,7 +4,7 @@ import { getRandomAlphabet } from "../../lib/utils";
 import GuessInput from "./GuessInput";
 import ResponsiveStickMan from "./ResponsiveStickMan";
 
-const GuessPerSymbol: Component = () => {
+const GuessSymbol: Component = () => {
   const [guess, setGuess] = createSignal("");
   const [symbol, setSymbol] = createSignal(getRandomAlphabet());
 
@@ -64,4 +64,4 @@ const GuessPerSymbol: Component = () => {
   );
 };
 
-export default GuessPerSymbol;
+export default GuessSymbol;

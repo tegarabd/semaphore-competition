@@ -46,7 +46,15 @@ const GuessWord: Component = () => {
           },
         }}
       >
-        <Stack component={Paper} variant="outlined" alignItems="center">
+        <Stack
+          component={Paper}
+          variant="outlined"
+          borderColor="secondary.main"
+          alignItems="center"
+          sx={{
+            borderWidth: "0.5rem",
+          }}
+        >
           <ResponsiveStickMan symbol={symbol()} />
         </Stack>
         <Stack spacing={3}>

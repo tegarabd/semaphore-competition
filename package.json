@@ -12,7 +12,6 @@
   "devDependencies": {
     "@suid/vite-plugin": "^0.1.4",
     "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.28",
     "solid-devtools": "^0.27.3",
     "typescript": "^5.1.3",
     "vite": "^4.4.9",

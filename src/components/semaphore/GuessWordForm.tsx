@@ -1,5 +1,5 @@
 import { Component, createSignal } from "solid-js";
-import { Paper, Stack, Typography } from "@suid/material";
+import { Button, Paper, Stack, Typography } from "@suid/material";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 import { guessWordSchema } from "../../schema/semaphore";
@@ -20,29 +20,21 @@ const GuessWordForm: Component = () => {
         sx={{
           p: 4,
         }}
-        spacing={2}
-        alignItems="start"
+        spacing={3}
       >
-        <Typography variant="h3">Start Practice</Typography>
-        {/* <SelectInput
-          formHandler={formHandler}
-          name="speed"
-          label="Speed"
-          options={[
-            { value: 1, label: "Slow" },
-            { value: 3, label: "Medium" },
-            { value: 5, label: "Fast" },
-          ]}
-        /> */}
+        <Typography variant="h3" letterSpacing={-1} align="center">
+          Start Practice
+        </Typography>
         <SliderInput
           formHandler={formHandler}
           name="speed"
           label="Speed"
           width="900"
-          min={0}
+          value={5}
+          min={1}
           max={10}
         />
-        <RadioInput
+        <SelectInput
           formHandler={formHandler}
           name="language"
           label="Language"
@@ -51,9 +43,9 @@ const GuessWordForm: Component = () => {
             { value: "en", label: "English" },
           ]}
         />
-        <pre>
-          <code>{JSON.stringify(formData(), null, 2)}</code>
-        </pre>
+        <Button size="large" variant="contained">
+          Start
+        </Button>
       </Stack>
     </>
   );
