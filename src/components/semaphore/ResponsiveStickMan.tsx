@@ -8,6 +8,10 @@ const ResponsiveStickMan: Component<{ symbol: string }> = (props) => {
 
   const stickManSize = () => {
     if (width() >= WINDOW_SIZE["xl"]) {
+      return "xl";
+    }
+
+    if (width() >= WINDOW_SIZE["lg"]) {
       return "lg";
     }
 

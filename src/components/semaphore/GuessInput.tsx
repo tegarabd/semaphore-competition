@@ -3,6 +3,7 @@ import CheckCircleIcon from "@suid/icons-material/CheckCircle";
 import KeyboardDoubleArrowRightIcon from "@suid/icons-material/KeyboardDoubleArrowRight";
 import { Button, Paper, Stack, TextField, Typography } from "@suid/material";
 import { Component, Show } from "solid-js";
+import H2 from "../typography/H2";
 
 type GuessInputType =
   | {
@@ -51,37 +52,28 @@ const GuessInput: Component<GuessInputType> = (props) => {
   const symbolType = () => props.type === "symbol";
 
   const inputSize = () => ({
-    xl: "7rem",
-    md: "6rem",
-    xs: "5rem",
+    xl: "3.5rem",
+    md: "3rem",
+    xs: "2.5rem",
   });
 
   const fontSize = () => ({
-    xs: "2rem",
-    md: "2.8rem",
-    xl: "3.5rem",
+    xs: "1rem",
+    md: "1.4rem",
+    xl: "1.75rem",
   });
 
   return (
     <>
       <Stack
         component={Paper}
-        variant="outlined"
         spacing={2}
         alignItems="center"
         sx={{
-          flexGrow: 1,
           p: 4,
         }}
       >
-        <Typography
-          variant="h3"
-          fontWeight="lighter"
-          letterSpacing={-1}
-          align="center"
-        >
-          {props.title}
-        </Typography>
+        <H2>{props.title}</H2>
         <Stack
           component="form"
           onSubmit={props.onSubmit}
@@ -97,11 +89,14 @@ const GuessInput: Component<GuessInputType> = (props) => {
               onChange: props.onChange,
             }}
             sx={{
-              width: symbolType() ? inputSize() : "calc(100% - 8rem)",
+              width: symbolType()
+                ? inputSize()
+                : `calc(100% - ${inputSize().xl})`,
               textAlign: "center",
               ".MuiInputBase-input": {
                 fontSize: fontSize(),
-                textAlign: "center",
+                textAlign: symbolType() ? "center" : "left",
+                py: 1,
               },
             }}
           />
@@ -144,13 +139,13 @@ const GuessInput: Component<GuessInputType> = (props) => {
             sx={{
               width: inputSize(),
               height: inputSize(),
-              borderRadius: "50%",
+              minWidth: 0,
             }}
           >
             <KeyboardDoubleArrowRightIcon
               sx={{
-                width: "6rem",
-                height: "6rem",
+                width: "80%",
+                height: "80%",
               }}
             />
           </Button>

@@ -3,7 +3,7 @@ import { Box } from "@suid/material";
 import { brown, red, yellow } from "@suid/material/colors";
 import { SEMAPHORE_SIZE } from "../../lib/semaphore";
 
-const SemaphoreFlag: Component<{ size: "sm" | "md" | "lg" | "xs" }> = (
+const SemaphoreFlag: Component<{ size: "xs" | "sm" | "md" | "lg" | "xl" }> = (
   props
 ) => {
   const stick = () => SEMAPHORE_SIZE[props.size].stick;

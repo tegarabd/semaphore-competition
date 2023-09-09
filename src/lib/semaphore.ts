@@ -29,6 +29,20 @@ export const SEMAPHORE_SIZE = {
   },
   md: {
     stick: {
+      width: "0.375rem",
+      height: "9rem",
+    },
+    redFlag: {
+      borderTopWidth: "4.5rem",
+      borderRightWidth: "4.5rem",
+    },
+    yellowFlag: {
+      borderBottomWidth: "4.5rem",
+      borderLeftWidth: "4.5rem",
+    },
+  },
+  lg: {
+    stick: {
       width: "0.5rem",
       height: "12rem",
     },
@@ -41,18 +55,18 @@ export const SEMAPHORE_SIZE = {
       borderLeftWidth: "6rem",
     },
   },
-  lg: {
+  xl: {
     stick: {
-      width: "0.75rem",
-      height: "18rem",
+      width: "0.625rem",
+      height: "15rem",
     },
     redFlag: {
-      borderTopWidth: "9rem",
-      borderRightWidth: "9rem",
+      borderTopWidth: "7.5rem",
+      borderRightWidth: "7.5rem",
     },
     yellowFlag: {
-      borderBottomWidth: "9rem",
-      borderLeftWidth: "9rem",
+      borderBottomWidth: "7.5rem",
+      borderLeftWidth: "7.5rem",
     },
   },
 };
@@ -110,6 +124,31 @@ export const STICKMAN_SIZE = {
   },
   md: {
     outerSpace: {
+      height: "24rem",
+      width: "25rem",
+    },
+    headSize: {
+      width: "3rem",
+      height: "3rem",
+    },
+    headSpace: {
+      marginBottom: "0.1875rem",
+    },
+    bodyWidth: {
+      width: "4.5rem",
+    },
+    bodyHeight: {
+      height: "6rem",
+    },
+    handAndLegSize: {
+      width: "1.5rem",
+      height: "6rem",
+    },
+    flagOffset: "translateY(-1.5rem)",
+    bodyOffset: { transform: "translateY(7.5rem)" },
+  },
+  lg: {
+    outerSpace: {
       height: "32rem",
       width: "33.3rem",
     },
@@ -133,30 +172,30 @@ export const STICKMAN_SIZE = {
     flagOffset: "translateY(-2rem)",
     bodyOffset: { transform: "translateY(10rem)" },
   },
-  lg: {
+  xl: {
     outerSpace: {
-      height: "48rem",
-      width: "50rem",
+      height: "40rem",
+      width: "42rem",
     },
     headSize: {
-      width: "6rem",
-      height: "6rem",
+      width: "5rem",
+      height: "5rem",
     },
     headSpace: {
-      marginBottom: "0.375rem",
+      marginBottom: "0.3125rem",
     },
     bodyWidth: {
-      width: "9rem",
+      width: "7.5rem",
     },
     bodyHeight: {
-      height: "12rem",
+      height: "10rem",
     },
     handAndLegSize: {
-      width: "3rem",
-      height: "12rem",
+      width: "2.5rem",
+      height: "10rem",
     },
-    flagOffset: "translateY(-3rem)",
-    bodyOffset: { transform: "translateY(15rem)" },
+    flagOffset: "translateY(-2.5rem)",
+    bodyOffset: { transform: "translateY(12.5rem)" },
   },
 };
 

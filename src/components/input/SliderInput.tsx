@@ -12,7 +12,12 @@ import {
 import "./SliderInput.css";
 
 export type TextInputProps = JSX.InputHTMLAttributes<HTMLInputElement> &
-  FieldProps & { label?: string; max: number };
+  FieldProps & {
+    label?: string;
+    max: number;
+    min: number;
+    fullWidth?: boolean;
+  };
 
 export const SliderInput: Component<TextInputProps> = (props) => {
   const [local, rest] = splitProps(props, [
@@ -33,7 +38,11 @@ export const SliderInput: Component<TextInputProps> = (props) => {
               height: field.helpers.error ? "6rem" : "4rem",
             }}
           >
-            <FormControl component={Stack} error={field.helpers.error}>
+            <FormControl
+              sx={{ width: rest.fullWidth ? "100%" : undefined }}
+              component={Stack}
+              error={field.helpers.error}
+            >
               <InputLabel
                 for={field.props.id}
                 sx={{ transform: "translateY(-1.5rem)" }}
@@ -41,10 +50,20 @@ export const SliderInput: Component<TextInputProps> = (props) => {
                 {local.label}
               </InputLabel>
               <div class="input-root">
-                <input type="range" {...rest} {...field.props} />
+                <input
+                  type="range"
+                  {...rest}
+                  {...field.props}
+                  style={{ width: rest.fullWidth ? "100%" : undefined }}
+                />
                 <div
                   class="indicator"
-                  style={{ width: `${(field.props.value / props.max) * 100}%` }}
+                  style={{
+                    width: `${
+                      ((field.props.value - rest.min) * 100) /
+                      (rest.max - rest.min)
+                    }%`,
+                  }}
                 ></div>
               </div>
               <FormHelperText sx={{ mt: -0.5 }}>

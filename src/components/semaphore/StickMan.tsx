@@ -5,7 +5,7 @@ import { blueGrey } from "@suid/material/colors";
 import { SEMAPHORE_SIGNAL, STICKMAN_SIZE } from "../../lib/semaphore";
 
 const StickMan: Component<{
-  size: "sm" | "md" | "lg" | "xs";
+  size: "xs" | "sm" | "md" | "lg" | "xl";
   symbol: string;
 }> = (props) => {
   const outerSpace = () => STICKMAN_SIZE[props.size].outerSpace;

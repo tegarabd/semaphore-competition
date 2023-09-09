@@ -1,12 +1,24 @@
-import { Paper, Stack } from "@suid/material";
+import { Button, Fab, Grid, Paper, Stack } from "@suid/material";
 import { Component, createSignal } from "solid-js";
 import { getRandomAlphabet } from "../../lib/utils";
 import GuessInput from "./GuessInput";
 import ResponsiveStickMan from "./ResponsiveStickMan";
+import CheatSheet from "./CheatSheet";
+import VisibilityIcon from "@suid/icons-material/Visibility";
+import H2 from "../typography/H2";
 
 const GuessSymbol: Component = () => {
+  const [open, setOpen] = createSignal(false);
   const [guess, setGuess] = createSignal("");
   const [symbol, setSymbol] = createSignal(getRandomAlphabet());
+
+  const handleOnClose = () => {
+    setOpen(false);
+  };
+
+  const handleOnOpen = () => {
+    setOpen(true);
+  };
 
   const handleOnChange = (
     event: Event & {
@@ -34,32 +46,49 @@ const GuessSymbol: Component = () => {
 
   return (
     <>
-      <Stack
-        direction={{
-          xs: "column",
-          lg: "row",
-        }}
+      <CheatSheet open={open()} onClose={handleOnClose} />
+      <Grid
         spacing={3}
-        justifyContent="stretch"
-        sx={{
-          alignItems: {
-            xs: "stretch",
-            lg: "start",
-          },
+        container
+        columns={{
+          lg: 7,
         }}
       >
-        <Stack component={Paper} variant="outlined" alignItems="center">
+        <Grid
+          item
+          lg={3}
+          flexGrow={1}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <ResponsiveStickMan symbol={symbol()} />
-        </Stack>
-        <GuessInput
-          title="Guess the letter"
-          type="symbol"
-          correct={correct()}
-          onSubmit={handleOnSubmit}
-          onChange={handleOnChange}
-          value={guess()}
-        />
-      </Stack>
+        </Grid>
+        <Grid item lg={2} flexGrow={1}>
+          <GuessInput
+            title="Guess The Letter"
+            type="symbol"
+            correct={correct()}
+            onSubmit={handleOnSubmit}
+            onChange={handleOnChange}
+            value={guess()}
+          />
+        </Grid>
+        <Grid item lg={2} flexGrow={1}>
+          <Stack component={Paper} spacing={2} p={4}>
+            <H2>View Cheat Sheet</H2>
+            <Button
+              onClick={handleOnOpen}
+              variant="contained"
+              endIcon={<VisibilityIcon />}
+            >
+              Cheat Sheet
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
     </>
   );
 };

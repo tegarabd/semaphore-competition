@@ -7,6 +7,7 @@ import { SelectChangeEvent } from "@suid/material/Select";
 import { RadioInput } from "../input/RadioInput";
 import { SelectInput } from "../input/SelectInput";
 import { SliderInput } from "../input/SliderInput";
+import H2 from "../typography/H2";
 
 const GuessWordForm: Component = () => {
   const formHandler = useFormHandler(yupSchema(guessWordSchema));
@@ -16,15 +17,12 @@ const GuessWordForm: Component = () => {
     <>
       <Stack
         component={Paper}
-        variant="outlined"
         sx={{
           p: 4,
         }}
         spacing={3}
       >
-        <Typography variant="h3" letterSpacing={-1} align="center">
-          Start Practice
-        </Typography>
+        <H2>Start Practice</H2>
         <SliderInput
           formHandler={formHandler}
           name="speed"
@@ -33,6 +31,7 @@ const GuessWordForm: Component = () => {
           value={5}
           min={1}
           max={10}
+          fullWidth
         />
         <SelectInput
           formHandler={formHandler}

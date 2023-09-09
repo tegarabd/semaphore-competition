@@ -67,12 +67,13 @@ export const SelectInput: Component<SelectProps> = (props) => {
           >
             <For each={options()}>
               {(option) => (
-                <option
+                <MenuItem
+                  component="option"
                   value={option.value}
                   selected={option.value == field.props.value}
                 >
                   {option.label}
-                </option>
+                </MenuItem>
               )}
             </For>
           </Select>
