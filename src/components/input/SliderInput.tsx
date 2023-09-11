@@ -8,6 +8,7 @@ import {
   MenuItem,
   Stack,
   Box,
+  Typography,
 } from "@suid/material";
 import "./SliderInput.css";
 
@@ -17,6 +18,8 @@ export type TextInputProps = JSX.InputHTMLAttributes<HTMLInputElement> &
     max: number;
     min: number;
     fullWidth?: boolean;
+    showValue?: boolean;
+    valueUnit?: string;
   };
 
 export const SliderInput: Component<TextInputProps> = (props) => {
@@ -49,23 +52,54 @@ export const SliderInput: Component<TextInputProps> = (props) => {
               >
                 {local.label}
               </InputLabel>
-              <div class="input-root">
-                <input
-                  type="range"
-                  {...rest}
-                  {...field.props}
-                  style={{ width: rest.fullWidth ? "100%" : undefined }}
-                />
-                <div
-                  class="indicator"
-                  style={{
-                    width: `${
-                      ((field.props.value - rest.min) * 100) /
-                      (rest.max - rest.min)
-                    }%`,
+              <Box
+                component="div"
+                sx={{
+                  display: rest.showValue ? "grid" : "flex",
+                  gridTemplateColumns: "auto 4rem",
+                  alignItems: "center",
+                  gap: "1rem",
+                }}
+              >
+                <Box
+                  component="div"
+                  sx={{
+                    position: "relative",
                   }}
-                ></div>
-              </div>
+                >
+                  <input
+                    type="range"
+                    {...rest}
+                    {...field.props}
+                    style={{ width: rest.fullWidth ? "100%" : undefined }}
+                  />
+                  <div
+                    class="indicator"
+                    style={{
+                      width: `${
+                        ((field.props.value - rest.min) /
+                          (rest.max - rest.min)) *
+                        100
+                      }%`,
+                    }}
+                  ></div>
+                </Box>
+                <Show when={rest.showValue}>
+                  <Stack
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={0.5}
+                    direction="row"
+                  >
+                    <Typography component="span" variant="body2">
+                      {field.props.value}
+                    </Typography>
+                    <Typography component="span" variant="body2">
+                      {rest.valueUnit}
+                    </Typography>
+                  </Stack>
+                </Show>
+              </Box>
               <FormHelperText sx={{ mt: -0.5 }}>
                 {field.helpers.errorMessage}
               </FormHelperText>

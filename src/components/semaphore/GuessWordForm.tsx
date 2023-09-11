@@ -32,6 +32,8 @@ const GuessWordForm: Component = () => {
           min={1}
           max={10}
           fullWidth
+          showValue
+          valueUnit="Sign/Sec"
         />
         <SelectInput
           formHandler={formHandler}
