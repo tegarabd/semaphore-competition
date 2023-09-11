@@ -1,19 +1,22 @@
-import { RecordModel } from "pocketbase";
-import { ID_WORDS_COUNT } from "../lib/constant";
+import { ListResult, RecordModel } from "pocketbase";
 import usePocket from "../lib/pocketbase";
-import { Word } from "../schema/word";
+import { Word, WordCount } from "../schema/word";
 
 export const useWord = () => {
   const pb = usePocket();
 
-  const getRandomWord = async () => {
-    const record = await pb()
+  const getRandomWord = async (language: "id" | "en") => {
+    const countRecord: WordCount & RecordModel = await pb()
+      .collection("words_count_per_language")
+      .getFirstListItem(`language = '${language}'`);
+
+    const wordRecord: ListResult<Word & RecordModel> = await pb()
       .collection("words")
-      .getList(Math.floor(Math.random() * ID_WORDS_COUNT), 1, {
-        filter: "language = 'id'",
+      .getList(Math.floor(Math.random() * countRecord.totalWords), 1, {
+        filter: `language = '${language}'`,
       });
 
-    return record.items[0] as Word & RecordModel;
+    return wordRecord.items[0];
   };
 
   return { getRandomWord };

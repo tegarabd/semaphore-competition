@@ -1,13 +1,29 @@
 import { Grid, Paper, Stack } from "@suid/material";
-import { Component, createSignal } from "solid-js";
+import {
+  Component,
+  createEffect,
+  createResource,
+  createSignal,
+  onMount,
+} from "solid-js";
 import GuessInput from "./GuessInput";
 import ResponsiveStickMan from "./ResponsiveStickMan";
 import GuessWordForm from "./GuessWordForm";
 import H2 from "../typography/H2";
+import { useWord } from "../../hooks/words";
 
 const GuessWord: Component = () => {
+  const { getRandomWord } = useWord();
   const [guess, setGuess] = createSignal("");
   const [symbol, setSymbol] = createSignal("!");
+  const [running, setRunning] = createSignal(false);
+  const [data, { refetch }] = createResource("id", getRandomWord);
+
+  createEffect(() => {
+    if (!data.loading && !data.error) {
+      console.log(data()?.word);
+    }
+  });
 
   const handleOnChange = (
     event: Event & {

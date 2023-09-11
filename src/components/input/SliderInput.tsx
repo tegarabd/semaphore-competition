@@ -55,10 +55,11 @@ export const SliderInput: Component<TextInputProps> = (props) => {
               <Box
                 component="div"
                 sx={{
-                  display: rest.showValue ? "grid" : "flex",
-                  gridTemplateColumns: "auto 4rem",
+                  display: rest.showValue ? "grid" : "block",
+                  gridTemplateColumns: "auto 5rem",
                   alignItems: "center",
                   gap: "1rem",
+                  width: rest.fullWidth ? "100%" : undefined,
                 }}
               >
                 <Box

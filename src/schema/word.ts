@@ -5,3 +5,9 @@ export type Word = {
   created: Date;
   updated: Date;
 };
+
+export type WordCount = {
+  id: number;
+  language: string;
+  totalWords: number;
+};

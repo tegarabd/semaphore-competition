@@ -8,5 +8,3 @@ export const WINDOW_SIZE = {
 };
 
 export const ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-
-export const ID_WORDS_COUNT = 31539;
