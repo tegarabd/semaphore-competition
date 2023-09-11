@@ -6,7 +6,7 @@ import { type Component } from "solid-js";
 import AuthWrapper from "../components/AuthWrapper";
 import { TextInput } from "../components/input/TextInput";
 import { useUser } from "../context/UserContext";
-import { sendRequest } from "../lib/utils";
+import { validateAndShowError } from "../lib/utils";
 import { loginSchema } from "../schema/user";
 
 const Login: Component = () => {
@@ -19,7 +19,7 @@ const Login: Component = () => {
     event.preventDefault();
 
     try {
-      await sendRequest(async () => {
+      await validateAndShowError(async () => {
         await formHandler.validateForm();
         await login(formData());
       });

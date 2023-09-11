@@ -5,7 +5,7 @@ import { FormErrorsException } from "solid-form-handler";
 import toast from "solid-toast";
 import { ALPHABET } from "./constant";
 
-export async function sendRequest(action: () => Promise<void>) {
+export async function validateAndShowError(action: () => Promise<void>) {
   try {
     await action();
   } catch (error) {

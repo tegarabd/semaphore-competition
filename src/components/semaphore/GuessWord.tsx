@@ -11,19 +11,14 @@ import ResponsiveStickMan from "./ResponsiveStickMan";
 import GuessWordForm from "./GuessWordForm";
 import H2 from "../typography/H2";
 import { useWord } from "../../hooks/words";
+import { GuessWordData } from "../../schema/semaphore";
 
 const GuessWord: Component = () => {
   const { getRandomWord } = useWord();
   const [guess, setGuess] = createSignal("");
   const [symbol, setSymbol] = createSignal("!");
   const [running, setRunning] = createSignal(false);
-  const [data, { refetch }] = createResource("id", getRandomWord);
-
-  createEffect(() => {
-    if (!data.loading && !data.error) {
-      console.log(data()?.word);
-    }
-  });
+  const [randomWord, { refetch }] = createResource("id", getRandomWord);
 
   const handleOnChange = (
     event: Event & {
@@ -45,6 +40,10 @@ const GuessWord: Component = () => {
     event.preventDefault();
     setSymbol("!");
     setGuess("");
+  };
+
+  const startGuess = (guessWordData: GuessWordData) => {
+    console.log(randomWord()?.word);
   };
 
   return (
@@ -82,7 +81,7 @@ const GuessWord: Component = () => {
         </Grid>
         <Grid item lg={2} flexGrow={1}>
           <Stack spacing={3} height="100%">
-            <GuessWordForm />
+            <GuessWordForm onSubmit={startGuess} />
             <PersonalBest />
           </Stack>
         </Grid>

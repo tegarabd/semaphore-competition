@@ -16,7 +16,7 @@ import Step1 from "../components/register-form/Step1";
 import Step2 from "../components/register-form/Step2";
 import Step3 from "../components/register-form/Step3";
 import { useUser } from "../context/UserContext";
-import { sendRequest } from "../lib/utils";
+import { validateAndShowError } from "../lib/utils";
 import { RegisterData, registerSchema } from "../schema/user";
 
 const RegisterFormContext = createContext(
@@ -38,7 +38,7 @@ const Register: Component = () => {
     event.preventDefault();
 
     try {
-      await sendRequest(async () => {
+      await validateAndShowError(async () => {
         await formHandler.validateForm();
         await register(formData());
         await login({
