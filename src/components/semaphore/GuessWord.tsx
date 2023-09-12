@@ -22,6 +22,7 @@ interface State {
   guess: string;
   guessRunning: boolean;
   signalRunning: boolean;
+  countDown: number;
   language: Language;
   speed: number;
 }
@@ -36,6 +37,7 @@ const GuessWord: Component = () => {
     guess: "",
     guessRunning: false,
     signalRunning: false,
+    countDown: 3,
     language: "id",
     speed: 0,
   });
@@ -63,18 +65,34 @@ const GuessWord: Component = () => {
   };
 
   const startGuess = async (guessWordData: GuessWordData) => {
-    await refetch();
-
     setState({
       language: guessWordData.language,
       speed: 1000 / guessWordData.speed,
       guessRunning: true,
-      word: randomWord()?.word.toLowerCase(),
-      wordIndex: 0,
     });
 
-    console.log({ ...state });
+    startCountDown(resetWord);
+  };
 
+  const startCountDown = (callback: TimerHandler) => {
+    interval = setInterval(() => {
+      setState({
+        countDown: state.countDown - 1,
+      });
+
+      if (state.countDown <= 1) {
+        clearInterval(interval);
+        setTimeout(callback, 1000);
+      }
+    }, 1000);
+  };
+
+  const resetWord = async () => {
+    await refetch();
+    setState({
+      word: randomWord()?.word.toLowerCase(),
+      countDown: 3,
+    });
     startSignal();
   };
 
@@ -89,6 +107,7 @@ const GuessWord: Component = () => {
         clearInterval(interval);
         setTimeout(() => {
           setState({ signalRunning: false, word: "!", wordIndex: 0 });
+          startCountDown(resetWord);
         }, state.speed);
       }
     }, state.speed);
@@ -96,6 +115,7 @@ const GuessWord: Component = () => {
 
   return (
     <>
+      {state.countDown}
       <Grid
         spacing={3}
         container

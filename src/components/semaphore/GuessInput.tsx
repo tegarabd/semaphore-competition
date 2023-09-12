@@ -2,7 +2,7 @@ import CancelIcon from "@suid/icons-material/Cancel";
 import CheckCircleIcon from "@suid/icons-material/CheckCircle";
 import KeyboardDoubleArrowRightIcon from "@suid/icons-material/KeyboardDoubleArrowRight";
 import { Button, Paper, Stack, TextField, Typography } from "@suid/material";
-import { Component, Show } from "solid-js";
+import { Component, Show, createEffect } from "solid-js";
 import H2 from "../typography/H2";
 
 type GuessInputType =
@@ -89,6 +89,7 @@ const GuessInput: Component<GuessInputType> = (props) => {
               maxLength: symbolType() ? 1 : undefined,
               value: props.value,
               onChange: props.onChange,
+              disabled: props.disabled,
             }}
             sx={{
               width: symbolType()
