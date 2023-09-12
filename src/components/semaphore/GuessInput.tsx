@@ -25,6 +25,7 @@ type GuessInputType =
       value: string;
       type: "word";
       correct?: boolean;
+      disabled?: boolean;
     }
   | {
       title: string;
@@ -45,6 +46,7 @@ type GuessInputType =
       value: string;
       type: "symbol";
       correct: boolean;
+      disabled?: boolean;
     };
 
 const GuessInput: Component<GuessInputType> = (props) => {
@@ -135,7 +137,9 @@ const GuessInput: Component<GuessInputType> = (props) => {
           <Button
             type="submit"
             variant="contained"
-            disabled={blank() || (symbolType() && !props.correct)}
+            disabled={
+              props.disabled || blank() || (symbolType() && !props.correct)
+            }
             sx={{
               width: inputSize(),
               height: inputSize(),

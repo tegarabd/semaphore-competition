@@ -64,7 +64,7 @@ const GuessSymbol: Component = () => {
             alignItems: "center",
           }}
         >
-          <ResponsiveStickMan symbol={symbol()} />
+          <ResponsiveStickMan speed={500} symbol={symbol()} />
         </Grid>
         <Grid item lg={2} flexGrow={1}>
           <GuessInput

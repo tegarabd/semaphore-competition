@@ -3,7 +3,9 @@ import StickMan from "./StickMan";
 import { WINDOW_SIZE } from "../../lib/constant";
 import { useWindowSize } from "solidjs-hooks";
 
-const ResponsiveStickMan: Component<{ symbol: string }> = (props) => {
+const ResponsiveStickMan: Component<{ symbol: string; speed: number }> = (
+  props
+) => {
   const { width } = useWindowSize();
 
   const stickManSize = () => {
@@ -22,7 +24,9 @@ const ResponsiveStickMan: Component<{ symbol: string }> = (props) => {
     return "sm";
   };
 
-  return <StickMan size={stickManSize()} symbol={props.symbol} />;
+  return (
+    <StickMan speed={props.speed} size={stickManSize()} symbol={props.symbol} />
+  );
 };
 
 export default ResponsiveStickMan;

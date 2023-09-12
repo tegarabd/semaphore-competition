@@ -7,6 +7,7 @@ import { SEMAPHORE_SIGNAL, STICKMAN_SIZE } from "../../lib/semaphore";
 const StickMan: Component<{
   size: "xs" | "sm" | "md" | "lg" | "xl";
   symbol: string;
+  speed: number;
 }> = (props) => {
   const outerSpace = () => STICKMAN_SIZE[props.size].outerSpace;
   const headSize = () => STICKMAN_SIZE[props.size].headSize;
@@ -57,7 +58,7 @@ const StickMan: Component<{
           <Box
             sx={{
               position: "absolute",
-              transition: "all 500ms",
+              transition: `all ${props.speed}ms`,
               backgroundColor: blueGrey[900],
               borderRadius: "100vw",
               left: 0,
@@ -72,7 +73,7 @@ const StickMan: Component<{
               sx={{
                 position: "absolute",
                 transform: `scaleY(-100%) ${flagOffset()} ${leftFlagFlip()}`,
-                transition: "all 500ms",
+                transition: `all ${props.speed}ms`,
               }}
             >
               <SemaphoreFlag size={props.size} />
@@ -81,7 +82,7 @@ const StickMan: Component<{
           <Box
             sx={{
               position: "absolute",
-              transition: "all 500ms",
+              transition: `all ${props.speed}ms`,
               backgroundColor: blueGrey[900],
               borderRadius: "100vw",
               right: 0,
@@ -96,7 +97,7 @@ const StickMan: Component<{
               sx={{
                 position: "absolute",
                 transform: `scaleY(-100%) ${flagOffset()} ${rightFlagFlip()}`,
-                transition: "all 500ms",
+                transition: `all ${props.speed}ms`,
               }}
             >
               <SemaphoreFlag size={props.size} />

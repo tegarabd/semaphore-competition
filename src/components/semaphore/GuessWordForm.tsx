@@ -1,4 +1,4 @@
-import { Button, Paper } from "@suid/material";
+import { Button, Paper, Stack } from "@suid/material";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 import { Component } from "solid-js";
@@ -17,8 +17,6 @@ const GuessWordForm: Component<{
   const submit = async (event: Event) => {
     event.preventDefault();
 
-    console.log("hai");
-
     try {
       await validateAndShowError(async () => {
         await formHandler.validateForm();
@@ -27,53 +25,52 @@ const GuessWordForm: Component<{
       return;
     }
 
-    formHandler.resetForm();
     props.onSubmit(formData());
   };
 
   return (
     <>
-      <Paper
-        component="form"
-        onSubmit={submit}
-        sx={{
-          p: 4,
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-        }}
-      >
-        <H2>Start Practice</H2>
-        <SliderInput
-          formHandler={formHandler}
-          name="speed"
-          label="Speed"
-          width="900"
-          value={5}
-          min={1}
-          max={10}
-          fullWidth
-          showValue
-          valueUnit="Sign/Sec"
-        />
-        <SelectInput
-          formHandler={formHandler}
-          name="language"
-          label="Language"
-          value="id"
-          options={[
-            { value: "id", label: "Bahasa Indonesia" },
-            { value: "en", label: "English" },
-          ]}
-        />
-        <Button
-          disabled={formHandler.isFormInvalid()}
-          size="large"
-          variant="contained"
-          type="submit"
+      <Paper>
+        <Stack
+          component="form"
+          onSubmit={submit}
+          spacing={3}
+          sx={{
+            p: 4,
+          }}
         >
-          Start
-        </Button>
+          <H2>Start Practice</H2>
+          <SliderInput
+            formHandler={formHandler}
+            name="speed"
+            label="Speed"
+            value={3}
+            min={1}
+            step={0.5}
+            max={5}
+            fullWidth
+            showValue
+            valueUnit="Sign/Sec"
+          />
+          <SelectInput
+            formHandler={formHandler}
+            name="language"
+            label="Language"
+            value="id"
+            options={[
+              { value: "id", label: "Bahasa Indonesia" },
+              { value: "en", label: "English" },
+            ]}
+          />
+          <Button
+            disabled={formHandler.isFormInvalid()}
+            size="large"
+            variant="contained"
+            type="submit"
+          >
+            Start
+          </Button>
+        </Stack>
       </Paper>
     </>
   );

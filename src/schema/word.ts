@@ -11,3 +11,5 @@ export type WordCount = {
   language: string;
   totalWords: number;
 };
+
+export type Language = "id" | "en";
