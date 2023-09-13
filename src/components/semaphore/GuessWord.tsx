@@ -1,26 +1,20 @@
-import { Grid, Paper, Stack } from "@suid/material";
-import {
-  Accessor,
-  Component,
-  createEffect,
-  createResource,
-  from,
-} from "solid-js";
-import { createStore } from "solid-js/store";
+import { Button, Grid, Paper, Stack } from "@suid/material";
+import { Component, Show, createResource } from "solid-js";
+import { createMutable, createStore } from "solid-js/store";
 import { useWord } from "../../hooks/words";
 import { GuessWordData } from "../../schema/semaphore";
+import { Language } from "../../schema/word";
+import H1 from "../typography/H1";
 import H2 from "../typography/H2";
 import GuessInput from "./GuessInput";
 import GuessWordForm from "./GuessWordForm";
 import ResponsiveStickMan from "./ResponsiveStickMan";
-import { Language } from "../../schema/word";
-import { useCounter, useInterval } from "solidjs-hooks";
 
 interface State {
   word: string;
   wordIndex: number;
   guess: string;
-  guessRunning: boolean;
+  practiceRunning: boolean;
   signalRunning: boolean;
   countDown: number;
   language: Language;
@@ -35,7 +29,7 @@ const GuessWord: Component = () => {
     word: "!",
     wordIndex: 0,
     guess: "",
-    guessRunning: false,
+    practiceRunning: false,
     signalRunning: false,
     countDown: 3,
     language: "id",
@@ -47,7 +41,7 @@ const GuessWord: Component = () => {
     getRandomWord
   );
 
-  const handleOnChange = (
+  const handleOnChangeGuess = (
     event: Event & {
       currentTarget: HTMLInputElement;
     }
@@ -57,21 +51,39 @@ const GuessWord: Component = () => {
     });
   };
 
-  const handleOnSubmit = (event: Event) => {
+  const handleOnSubmitGuess = (event: Event) => {
     event.preventDefault();
+    setState({ guess: "" });
+  };
+
+  const handleOnResetPractice = () => {
+    const highestId = setTimeout(() => {
+      for (let i = 0; i <= highestId; i++) {
+        clearInterval(i);
+      }
+    }, 0);
+
     setState({
+      word: "!",
+      wordIndex: 0,
       guess: "",
+      practiceRunning: false,
+      signalRunning: false,
+      countDown: 3,
     });
   };
 
-  const startGuess = async (guessWordData: GuessWordData) => {
+  const startPractice = async (guessWordData: GuessWordData) => {
     setState({
       language: guessWordData.language,
       speed: 1000 / guessWordData.speed,
-      guessRunning: true,
+      practiceRunning: true,
     });
 
-    startCountDown(resetWord);
+    startCountDown(async () => {
+      await resetWord();
+      startSignal();
+    });
   };
 
   const startCountDown = (callback: TimerHandler) => {
@@ -91,31 +103,41 @@ const GuessWord: Component = () => {
     await refetch();
     setState({
       word: randomWord()?.word.toLowerCase(),
+    });
+  };
+
+  const restartPractice = () => {
+    setState({
+      signalRunning: false,
+      word: "!",
+      wordIndex: 0,
       countDown: 3,
     });
-    startSignal();
+    startCountDown(async () => {
+      await resetWord();
+      startSignal();
+    });
   };
 
   const startSignal = () => {
+    setState({
+      signalRunning: true,
+    });
+
     interval = setInterval(() => {
       setState({
-        signalRunning: true,
         wordIndex: state.wordIndex + 1,
       });
 
       if (state.wordIndex >= state.word.length - 1) {
         clearInterval(interval);
-        setTimeout(() => {
-          setState({ signalRunning: false, word: "!", wordIndex: 0 });
-          startCountDown(resetWord);
-        }, state.speed);
+        setTimeout(restartPractice, state.speed);
       }
     }, state.speed);
   };
 
   return (
     <>
-      {state.countDown}
       <Grid
         spacing={3}
         container
@@ -143,17 +165,27 @@ const GuessWord: Component = () => {
             <GuessInput
               title="Guess The Word"
               type="word"
-              onSubmit={handleOnSubmit}
-              onChange={handleOnChange}
+              onSubmit={handleOnSubmitGuess}
+              onChange={handleOnChangeGuess}
               value={state.guess}
-              disabled={!state.guessRunning && state.signalRunning}
+              disabled={!state.practiceRunning || state.signalRunning}
             />
             <CorrectStreak />
           </Stack>
         </Grid>
         <Grid item lg={2} flexGrow={1}>
           <Stack spacing={3} height="100%">
-            <GuessWordForm onSubmit={startGuess} />
+            <Paper>
+              <Show when={!state.practiceRunning}>
+                <GuessWordForm onSubmit={startPractice} />
+              </Show>
+              <Show when={state.practiceRunning}>
+                <GuessInformation
+                  countDown={state.countDown}
+                  onReset={handleOnResetPractice}
+                />
+              </Show>
+            </Paper>
             <PersonalBest />
           </Stack>
         </Grid>
@@ -163,6 +195,20 @@ const GuessWord: Component = () => {
 };
 
 export default GuessWord;
+
+const GuessInformation: Component<{
+  countDown: number;
+  onReset: VoidFunction;
+}> = (props) => {
+  return (
+    <Stack spacing={3} p={4} alignItems="center">
+      <H1>{props.countDown.toString()}</H1>
+      <Button variant="contained" onClick={props.onReset} fullWidth>
+        Reset
+      </Button>
+    </Stack>
+  );
+};
 
 const PersonalBest: Component = () => {
   return (

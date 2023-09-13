@@ -213,6 +213,16 @@ interface SemaphoreSignal {
 }
 
 export const SEMAPHORE_SIGNAL: SemaphoreSignal = {
+  " ": {
+    left: {
+      rotation: "rotate(-45deg)",
+      flip: "scale(-1, 1)",
+    },
+    right: {
+      rotation: "rotate(45deg)",
+      flip: "scale(1, 1)",
+    },
+  },
   "-": {
     left: {
       rotation: "rotate(-135deg)",

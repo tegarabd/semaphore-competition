@@ -1,4 +1,4 @@
-import { Button, Paper, Stack } from "@suid/material";
+import { Button, Stack } from "@suid/material";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 import { Component } from "solid-js";
@@ -30,48 +30,46 @@ const GuessWordForm: Component<{
 
   return (
     <>
-      <Paper>
-        <Stack
-          component="form"
-          onSubmit={submit}
-          spacing={3}
-          sx={{
-            p: 4,
-          }}
+      <Stack
+        component="form"
+        onSubmit={submit}
+        spacing={3}
+        sx={{
+          p: 4,
+        }}
+      >
+        <H2>Start Practice</H2>
+        <SliderInput
+          formHandler={formHandler}
+          name="speed"
+          label="Speed"
+          value={3}
+          min={1}
+          step={0.5}
+          max={5}
+          fullWidth
+          showValue
+          valueUnit="Sign/Sec"
+        />
+        <SelectInput
+          formHandler={formHandler}
+          name="language"
+          label="Language"
+          value="id"
+          options={[
+            { value: "id", label: "Bahasa Indonesia" },
+            { value: "en", label: "English" },
+          ]}
+        />
+        <Button
+          disabled={formHandler.isFormInvalid()}
+          size="large"
+          variant="contained"
+          type="submit"
         >
-          <H2>Start Practice</H2>
-          <SliderInput
-            formHandler={formHandler}
-            name="speed"
-            label="Speed"
-            value={3}
-            min={1}
-            step={0.5}
-            max={5}
-            fullWidth
-            showValue
-            valueUnit="Sign/Sec"
-          />
-          <SelectInput
-            formHandler={formHandler}
-            name="language"
-            label="Language"
-            value="id"
-            options={[
-              { value: "id", label: "Bahasa Indonesia" },
-              { value: "en", label: "English" },
-            ]}
-          />
-          <Button
-            disabled={formHandler.isFormInvalid()}
-            size="large"
-            variant="contained"
-            type="submit"
-          >
-            Start
-          </Button>
-        </Stack>
-      </Paper>
+          Start
+        </Button>
+      </Stack>
     </>
   );
 };
