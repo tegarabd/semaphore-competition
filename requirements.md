@@ -7,10 +7,10 @@ Requirements:
     - guess letter [V]
     - view correct streak
   - practice semaphore:
-    - practice words
-    - set speed
+    - practice words [V]
+    - set speed [V]
     - set words count
-    - set language
+    - set language [V]
   - join competition:
     - view participants
     - view competition guide:

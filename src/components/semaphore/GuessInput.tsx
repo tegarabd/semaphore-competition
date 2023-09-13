@@ -25,7 +25,7 @@ type GuessInputType =
       value: string;
       type: "word";
       correct?: boolean;
-      disabled?: boolean;
+      helperText?: string;
     }
   | {
       title: string;
@@ -46,7 +46,7 @@ type GuessInputType =
       value: string;
       type: "symbol";
       correct: boolean;
-      disabled?: boolean;
+      helperText?: string;
     };
 
 const GuessInput: Component<GuessInputType> = (props) => {
@@ -67,14 +67,7 @@ const GuessInput: Component<GuessInputType> = (props) => {
 
   return (
     <>
-      <Stack
-        component={Paper}
-        spacing={2}
-        alignItems="center"
-        sx={{
-          p: 4,
-        }}
-      >
+      <Stack component={Paper} spacing={2} alignItems="center" p={4}>
         <H2>{props.title}</H2>
         <Stack
           component="form"
@@ -85,11 +78,11 @@ const GuessInput: Component<GuessInputType> = (props) => {
         >
           <TextField
             variant="outlined"
+            helperText={props.helperText}
             inputProps={{
               maxLength: symbolType() ? 1 : undefined,
               value: props.value,
               onChange: props.onChange,
-              disabled: props.disabled,
             }}
             sx={{
               width: symbolType()
@@ -138,9 +131,7 @@ const GuessInput: Component<GuessInputType> = (props) => {
           <Button
             type="submit"
             variant="contained"
-            disabled={
-              props.disabled || blank() || (symbolType() && !props.correct)
-            }
+            disabled={blank() || (symbolType() && !props.correct)}
             sx={{
               width: inputSize(),
               height: inputSize(),

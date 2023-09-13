@@ -44,7 +44,7 @@ const CheatSheet: Component<{ open: boolean; onClose: VoidFunction }> = (
                 xs={1}
               >
                 <Card>
-                  <StickMan size="xs" symbol={symbol} />
+                  <StickMan speed={500} size="xs" symbol={symbol} />
                   <Typography
                     sx={{
                       backgroundColor: "secondary.main",
