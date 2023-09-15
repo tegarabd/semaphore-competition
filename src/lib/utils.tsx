@@ -35,6 +35,7 @@ export function toastError(text: string) {
         <Box sx={{ width: "24rem" }}>
           <Grow in={t.visible}>
             <Alert
+              variant="filled"
               severity="error"
               action={
                 <IconButton
