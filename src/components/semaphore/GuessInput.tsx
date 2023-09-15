@@ -78,6 +78,7 @@ const GuessInput: Component<GuessInputType> = (props) => {
         >
           <TextField
             variant="outlined"
+            autoComplete={false}
             helperText={props.helperText}
             inputProps={{
               maxLength: symbolType() ? 1 : undefined,

@@ -1,4 +1,12 @@
-import { Button, Chip, Grid, Paper, Stack, Typography } from "@suid/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+} from "@suid/material";
 import { Component, Show, createResource } from "solid-js";
 import { createStore } from "solid-js/store";
 import { useWord } from "../../hooks/words";
@@ -68,19 +76,31 @@ const GuessWord: Component = () => {
     event.preventDefault();
 
     if (!state.showResult) {
-      setState({ showResult: true, guessIndicator: "" });
-    } else {
-      setState({ showResult: false, guess: "", guessAllowed: false });
-      restartPractice();
+      clearAllInterval();
+      setState({
+        showResult: true,
+        guessIndicator: "",
+        signalRunning: false,
+        countDown: 3,
+        wordIndex: 0,
+      });
+      return;
     }
+
+    setState({ showResult: false, guess: "", guessAllowed: false });
+    restartPractice();
   };
 
-  const handleOnResetPractice = () => {
+  const clearAllInterval = () => {
     const highestId = setTimeout(() => {
       for (let i = 0; i <= highestId; i++) {
         clearInterval(i);
       }
     }, 0);
+  };
+
+  const handleOnResetPractice = () => {
+    clearAllInterval();
 
     setState({
       word: "!",
@@ -124,6 +144,7 @@ const GuessWord: Component = () => {
     setState({
       word: randomWord()?.word.toLowerCase(),
     });
+    console.log(state.word);
   };
 
   const restartPractice = () => {
@@ -136,6 +157,7 @@ const GuessWord: Component = () => {
   const startSignal = () => {
     setState({
       signalRunning: true,
+      guessAllowed: true,
       guessIndicator: "Read the signal",
     });
 
@@ -151,7 +173,6 @@ const GuessWord: Component = () => {
             signalRunning: false,
             wordIndex: 0,
             countDown: 3,
-            guessAllowed: true,
             guessIndicator: "Time to guess",
           });
         }, state.speed);
@@ -178,7 +199,7 @@ const GuessWord: Component = () => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "start",
+            alignItems: "center",
             position: "relative",
           }}
         >
@@ -187,13 +208,20 @@ const GuessWord: Component = () => {
             symbol={state.signalRunning ? state.word[state.wordIndex] : "!"}
           />
           <Show when={state.guessIndicator === ""}>
+            <Box
+              sx={{
+                position: "absolute",
+                inset: 0,
+                backgroundColor: "rgba(250,250,250,0.7)",
+              }}
+            ></Box>
             <Typography
               sx={{
                 fontSize: {
-                  xs: "3.2rem",
-                  md: "4.8rem",
-                  lg: "6.4rem",
-                  xl: "8rem",
+                  xs: "6.4rem",
+                  md: "9.6rem",
+                  lg: "12.8rem",
+                  xl: "16rem",
                 },
                 fontWeight: "900",
                 position: "absolute",
