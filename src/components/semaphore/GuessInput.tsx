@@ -67,7 +67,7 @@ const GuessInput: Component<GuessInputType> = (props) => {
 
   return (
     <>
-      <Stack component={Paper} spacing={2} alignItems="center" p={4}>
+      <Stack component={Paper} spacing={3} alignItems="center" p={4}>
         <H2>{props.title}</H2>
         <Stack
           component="form"

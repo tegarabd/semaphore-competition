@@ -12,6 +12,7 @@ import H2 from "../typography/H2";
 import GuessInput from "./GuessInput";
 import GuessWordForm from "./GuessWordForm";
 import ResponsiveStickMan from "./ResponsiveStickMan";
+import { useCounter, useLocalStorage } from "solidjs-hooks";
 
 type GuessIndicator = "Get Ready" | "Read The Signal" | "Time to Guess";
 
@@ -27,6 +28,11 @@ interface State {
   countDown: number;
   language: Language;
   speed: number;
+}
+
+interface PersonalBestProps {
+  correctStreakCount: number;
+  speed?: number;
 }
 
 const GuessWord: Component = () => {
@@ -53,6 +59,16 @@ const GuessWord: Component = () => {
     getRandomWord
   );
 
+  const correctCounter = useCounter();
+
+  const [personalBest, setPersonalBest] = useLocalStorage<PersonalBestProps>(
+    "personalBest",
+    {
+      correctStreakCount: 0,
+      speed: undefined,
+    }
+  );
+
   const handleOnChangeGuess = (
     event: Event & {
       currentTarget: HTMLInputElement;
@@ -67,11 +83,30 @@ const GuessWord: Component = () => {
     });
   };
 
+  const correct = () => state.guess.toUpperCase() === state.word.toUpperCase();
+
+  const updateCorrectCounter = () => {
+    if (!correct()) {
+      correctCounter.reset();
+      return;
+    }
+
+    correctCounter.increment();
+
+    if (correctCounter.count() > personalBest().correctStreakCount) {
+      setPersonalBest({
+        correctStreakCount: correctCounter.count(),
+        speed: Math.round(1000 / state.speed),
+      });
+    }
+  };
+
   const handleOnSubmitGuess = (event: Event) => {
     event.preventDefault();
 
     if (!state.showResult) {
       clearAllInterval();
+      updateCorrectCounter();
       setState({
         showResult: true,
         guessIndicator: "Get Ready",
@@ -79,6 +114,7 @@ const GuessWord: Component = () => {
         countDown: 3,
         wordIndex: 0,
       });
+
       return;
     }
 
@@ -251,8 +287,8 @@ const GuessWord: Component = () => {
                 <GuessInformation
                   guessIndicator={state.guessIndicator}
                   showResult={state.showResult}
-                  guess={state.guess}
                   word={state.word}
+                  correct={correct()}
                   onReset={handleOnResetPractice}
                 />
               </Show>
@@ -261,8 +297,8 @@ const GuessWord: Component = () => {
         </Grid>
         <Grid item lg={2} flexGrow={1}>
           <Stack spacing={3} height="100%">
-            <CorrectStreak />
-            <PersonalBest />
+            <CorrectStreak correctStreakCount={correctCounter.count()} />
+            <PersonalBest {...personalBest()} />
           </Stack>
         </Grid>
       </Grid>
@@ -273,26 +309,26 @@ const GuessWord: Component = () => {
 export default GuessWord;
 
 const GuessInformation: Component<
-  Pick<State, "guess" | "word" | "showResult" | "guessIndicator"> & {
+  Pick<State, "word" | "showResult" | "guessIndicator"> & {
     onReset: VoidFunction;
+    correct: boolean;
   }
 > = (props) => {
-  const correct = () => props.guess.toUpperCase() === props.word.toUpperCase();
   const iconSize = () => ({
     width: "6rem",
     height: "6rem",
   });
 
   return (
-    <Stack spacing={3} p={4} alignItems="center" maxWidth="100%">
+    <Stack spacing={3} p={4} alignItems="center">
       <H2>Guess Information</H2>
 
       <Show when={props.showResult}>
         <Typography>
-          <Show when={correct()}>
+          <Show when={props.correct}>
             <CheckCircleIcon color="success" sx={iconSize()} />
           </Show>
-          <Show when={!correct()}>
+          <Show when={!props.correct}>
             <CancelIcon color="error" sx={iconSize()} />
           </Show>
         </Typography>
@@ -300,6 +336,7 @@ const GuessInformation: Component<
           sx={{
             wordWrap: "break-word",
             textAlign: "center",
+            maxWidth: "100%",
           }}
         >
           {props.word.toUpperCase()}
@@ -318,18 +355,25 @@ const GuessInformation: Component<
   );
 };
 
-const PersonalBest: Component = () => {
+const PersonalBest: Component<PersonalBestProps> = (props) => {
   return (
-    <Paper sx={{ flexGrow: 1, p: 4 }}>
-      <H2>Personal Best</H2>
+    <Paper>
+      <Stack alignItems="center" p={4} spacing={3}>
+        <H2>Personal Best</H2>
+        <H1>{props.correctStreakCount.toString()}</H1>
+        <Typography>{props.speed} Signal/Seconds</Typography>
+      </Stack>
     </Paper>
   );
 };
 
-const CorrectStreak: Component = () => {
+const CorrectStreak: Component<{ correctStreakCount: number }> = (props) => {
   return (
-    <Paper sx={{ flexGrow: 1, p: 4 }}>
-      <H2>Correct Streak</H2>
+    <Paper>
+      <Stack alignItems="center" p={4} spacing={3}>
+        <H2>Correct Streak</H2>
+        <H1>{props.correctStreakCount.toString()}</H1>
+      </Stack>
     </Paper>
   );
 };
