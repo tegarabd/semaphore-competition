@@ -13,6 +13,8 @@ import GuessInput from "./GuessInput";
 import GuessWordForm from "./GuessWordForm";
 import ResponsiveStickMan from "./ResponsiveStickMan";
 
+type GuessIndicator = "Get Ready" | "Read The Signal" | "Time to Guess";
+
 interface State {
   word: string;
   wordIndex: number;
@@ -20,18 +22,12 @@ interface State {
   practiceRunning: boolean;
   signalRunning: boolean;
   guessAllowed: boolean;
-  guessIndicator: string;
+  guessIndicator: GuessIndicator;
   showResult: boolean;
   countDown: number;
   language: Language;
   speed: number;
 }
-
-const GUESS_INDICATOR = {
-  GET_READY: "Get Ready",
-  READ_THE_SIGNAL: "Read The Signal",
-  TIME_TO_GUESS: "Time to Guess",
-};
 
 const GuessWord: Component = () => {
   let interval: number;
@@ -45,7 +41,7 @@ const GuessWord: Component = () => {
     practiceRunning: false,
     signalRunning: false,
     guessAllowed: false,
-    guessIndicator: GUESS_INDICATOR.GET_READY,
+    guessIndicator: "Get Ready",
     countDown: 3,
     language: "id",
     speed: 0,
@@ -78,7 +74,7 @@ const GuessWord: Component = () => {
       clearAllInterval();
       setState({
         showResult: true,
-        guessIndicator: GUESS_INDICATOR.GET_READY,
+        guessIndicator: "Get Ready",
         signalRunning: false,
         countDown: 3,
         wordIndex: 0,
@@ -108,7 +104,7 @@ const GuessWord: Component = () => {
       practiceRunning: false,
       signalRunning: false,
       guessAllowed: false,
-      guessIndicator: GUESS_INDICATOR.GET_READY,
+      guessIndicator: "Get Ready",
       countDown: 3,
       speed: 0,
       showResult: false,
@@ -156,7 +152,7 @@ const GuessWord: Component = () => {
     setState({
       signalRunning: true,
       guessAllowed: true,
-      guessIndicator: GUESS_INDICATOR.READ_THE_SIGNAL,
+      guessIndicator: "Read The Signal",
     });
 
     interval = setInterval(() => {
@@ -171,7 +167,7 @@ const GuessWord: Component = () => {
             signalRunning: false,
             wordIndex: 0,
             countDown: 3,
-            guessIndicator: GUESS_INDICATOR.TIME_TO_GUESS,
+            guessIndicator: "Time to Guess",
           });
         }, state.speed);
       }
@@ -206,10 +202,7 @@ const GuessWord: Component = () => {
             symbol={state.signalRunning ? state.word[state.wordIndex] : "!"}
           />
           <Show
-            when={
-              state.practiceRunning &&
-              state.guessIndicator === GUESS_INDICATOR.GET_READY
-            }
+            when={state.practiceRunning && state.guessIndicator === "Get Ready"}
           >
             <Box
               sx={{
