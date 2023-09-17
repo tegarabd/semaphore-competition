@@ -1,9 +1,10 @@
 import { Breakpoint, Theme, Typography } from "@suid/material";
 import { SxProps } from "@suid/system";
 import { Component } from "solid-js";
+import { JSX } from "solid-js";
 
 const H1: Component<{
-  children: string;
+  children: JSX.Element;
   sx?: SxProps<Theme<Breakpoint>>;
 }> = (props) => (
   <Typography

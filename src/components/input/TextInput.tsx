@@ -11,7 +11,6 @@ export const TextInput: Component<TextInputProps> = (props) => {
     "classList",
     "label",
     "formHandler",
-    "type",
   ]);
 
   return (

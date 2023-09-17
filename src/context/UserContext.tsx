@@ -6,7 +6,7 @@ const useValue = () => {
   const pb = usePocket();
 
   const getCurrentUser = () => {
-    return pb().authStore.model;
+    return pb.authStore.model;
   };
 
   const getUserAvatarUrl = () => {
@@ -20,13 +20,13 @@ const useValue = () => {
   };
 
   const login = async (loginData: LoginData) => {
-    return await pb()
+    return await pb
       .collection("users")
       .authWithPassword(loginData.usernameOrEmail, loginData.password);
   };
 
   const register = async (registerData: RegisterData) => {
-    return await pb().collection("users").create({
+    return await pb.collection("users").create({
       username: registerData.step2.username,
       email: registerData.step1.email,
       password: registerData.step1.password,
@@ -38,7 +38,7 @@ const useValue = () => {
   };
 
   const logout = () => {
-    pb().authStore.clear();
+    pb.authStore.clear();
   };
 
   return {
