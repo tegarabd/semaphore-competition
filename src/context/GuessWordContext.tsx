@@ -33,10 +33,6 @@ export interface PersonalBestData {
   bestSpeed: number;
 }
 
-interface ChangeEvent {
-  currentTarget: HTMLInputElement;
-}
-
 const useValue = () => {
   let interval: number;
 
@@ -72,7 +68,7 @@ const useValue = () => {
     }
   );
 
-  const changeGuess = (event: ChangeEvent & Event) => {
+  const changeGuess = (event: { currentTarget: HTMLInputElement }) => {
     if (!state.guessAllowed || state.resultShow) {
       return;
     }

@@ -1,11 +1,11 @@
-import { Button, Fab, Grid, Paper, Stack } from "@suid/material";
+import VisibilityIcon from "@suid/icons-material/Visibility";
+import { Button, Grid, Paper, Stack } from "@suid/material";
 import { Component, createSignal } from "solid-js";
 import { getRandomAlphabet } from "../../lib/utils";
+import H2 from "../typography/H2";
+import CheatSheet from "./CheatSheet";
 import GuessInput from "./GuessInput";
 import ResponsiveStickMan from "./ResponsiveStickMan";
-import CheatSheet from "./CheatSheet";
-import VisibilityIcon from "@suid/icons-material/Visibility";
-import H2 from "../typography/H2";
 
 const GuessSymbol: Component = () => {
   const [open, setOpen] = createSignal(false);
@@ -20,23 +20,11 @@ const GuessSymbol: Component = () => {
     setOpen(true);
   };
 
-  const handleOnChange = (
-    event: Event & {
-      currentTarget: HTMLInputElement;
-      target: HTMLInputElement;
-    }
-  ) => {
+  const handleOnChange = (event: { currentTarget: HTMLInputElement }) => {
     setGuess(event.currentTarget.value.toUpperCase());
   };
 
-  const handleOnSubmit = (
-    event: Event & {
-      submitter: HTMLElement;
-    } & {
-      currentTarget: HTMLFormElement;
-      target: Element;
-    }
-  ) => {
+  const handleOnSubmit = (event: Event) => {
     event.preventDefault();
     setSymbol(getRandomAlphabet());
     setGuess("");
@@ -53,6 +41,7 @@ const GuessSymbol: Component = () => {
         columns={{
           lg: 7,
         }}
+        minHeight="calc(100vh - 10rem)"
       >
         <Grid
           item

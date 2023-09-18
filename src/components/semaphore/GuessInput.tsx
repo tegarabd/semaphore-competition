@@ -8,45 +8,21 @@ import H2 from "../typography/H2";
 type GuessInputType =
   | {
       title: string;
-      onSubmit: (
-        event: Event & {
-          submitter: HTMLElement;
-        } & {
-          currentTarget: HTMLFormElement;
-          target: Element;
-        }
-      ) => void;
-      onChange: (
-        event: Event & {
-          currentTarget: HTMLInputElement;
-          target: HTMLInputElement;
-        }
-      ) => void;
+      onSubmit: (event: Event) => void;
+      onChange: (event: { currentTarget: HTMLInputElement }) => void;
       value: string;
+      helperText?: string;
       type: "word";
       correct?: boolean;
-      helperText?: string;
     }
   | {
       title: string;
-      onSubmit: (
-        event: Event & {
-          submitter: HTMLElement;
-        } & {
-          currentTarget: HTMLFormElement;
-          target: Element;
-        }
-      ) => void;
-      onChange: (
-        event: Event & {
-          currentTarget: HTMLInputElement;
-          target: HTMLInputElement;
-        }
-      ) => void;
+      onSubmit: (event: Event) => void;
+      onChange: (event: { currentTarget: HTMLInputElement }) => void;
       value: string;
+      helperText?: string;
       type: "symbol";
       correct: boolean;
-      helperText?: string;
     };
 
 const GuessInput: Component<GuessInputType> = (props) => {
