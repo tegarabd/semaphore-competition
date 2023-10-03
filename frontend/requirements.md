@@ -5,11 +5,11 @@ Requirements:
   - learn semaphore
     - learn A-Z symbol [V]
     - guess letter [V]
-    - view correct streak
   - practice semaphore:
     - practice words [V]
     - set speed [V]
-    - set words count
+    - view correct streak [V]
+    - view personal best [V]
     - set language [V]
   - join competition:
     - view participants

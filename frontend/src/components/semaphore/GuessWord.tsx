@@ -1,15 +1,13 @@
-import { Box, Button, Grid, Paper, Stack, Typography } from "@suid/material";
+import { Grid, Paper, Stack } from "@suid/material";
 import { Component, Show } from "solid-js";
 import { useGuessWord } from "../../context/GuessWordContext";
-import H1 from "../typography/H1";
-import H2 from "../typography/H2";
 import GuessInput from "./GuessInput";
 import GuessWordForm from "./GuessWordForm";
 import ResponsiveStickMan from "./ResponsiveStickMan";
+import CorrectStreak from "./guess-word/CorrectStreak";
 import CountDown from "./guess-word/CountDown";
 import GuessInformation from "./guess-word/GuessInformation";
 import PersonalBest from "./guess-word/PersonalBest";
-import CorrectStreak from "./guess-word/CorrectStreak";
 
 const GuessWord: Component = () => {
   const {
