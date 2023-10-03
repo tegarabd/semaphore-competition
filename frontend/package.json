@@ -23,6 +23,7 @@
     "@suid/material": "^0.14.2",
     "@types/validator": "^13.11.1",
     "pocketbase": "^0.17.3",
+    "socket.io-client": "^4.7.2",
     "solid-form-handler": "^1.2.0",
     "solid-js": "^1.7.6",
     "solid-toast": "^0.5.0",
